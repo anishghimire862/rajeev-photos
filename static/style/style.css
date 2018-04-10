@@ -1,0 +1,60 @@
+/* #171b24 */
+body {
+	background-color: rgb(68,70,79);
+    position: relative;
+}
+/* style for normal cards*/
+
+.demo-card-image__filename {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+.mdl-layout__header {
+	background: linear-gradient(90deg, rgb(183, 184, 188),rgb(68, 70, 79),rgb(36, 39, 51),rgb(23, 27, 36));
+}
+/* end of styles for normal cards*/
+
+
+ /*end of styles for landscape images cards*/
+.mdl-dialog__content{
+	background-color: rgba(10, 10, 10, 0.9);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+.dialog-content {
+	position: relative;
+    text-align: center;
+}
+
+.mdl-dialog__content img {
+	width: 80%;
+    height: auto;
+}
+.mdl-button {
+	background-color: rgb(183, 184, 188)  !important;	
+}
+.close {
+	position: fixed !important;
+	top: 8px;
+	right: 18px;
+}
+.left-arrow {
+	position: fixed !important;
+	left: 6%;
+	top: 40%;
+	bottom: 40%;
+	
+}
+.right-arrow {
+	position: fixed !important;
+	right: 6%;
+	top: 40%;
+	bottom: 40%;
+}

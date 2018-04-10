@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rajeev Viewfinder photography</title>
+    <meta charset="UTF-8" name="viewport"
+          content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Rajeev viewfinder photography"/>
+    <link rel="stylesheet" href="/static/style/style.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"/>
+    <link rel="stylesheet" href="/static/dialog-polyfill/dialog-polyfill.css"/>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="/static/javascript/script.js"></script>
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Rajeev's Photography</span>
+        </div>
+    </header>
+    <main class="mdl-layout__content">
+        <div class="page-content" id="page-content">
+            <div class="mdl-grid">
+
+                {% for image in images %}
+                <div class="mdl-cell mdl-cell--3-col">
+                    <div class="demo-card-image mdl-card mdl-shadow--2dp show-dialog"
+                         data-url="{{ image.url }}"
+                         style="background: url('{{ image.thumbnail }}') center / cover;"
+                         id="{{loop.index}}">
+                        <div class="mdl-card__title mdl-card--expand"></div>
+                        <div class="mdl-card__actions">
+                            <span class="demo-card-image__filename">{{image.name}}</span>
+                        </div>
+                        <div class="mdl-card__menu">
+                            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                                <i class="material-icons">share</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</div>
+
+<dialog class="mdl-dialog">
+    <div class="mdl-dialog__content" style="text-align: center;">
+        <div class="dialog-content">
+            <img src="" alt="Your picture" id="modal-image"/>
+            <button type="button"
+                    class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect left-arrow"
+            onclick="previous()">
+                <i class="material-icons">keyboard_arrow_left</i>
+            </button>
+            <button type="button"
+                    class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect right-arrow"
+            onclick="next()">
+                <i class="material-icons">keyboard_arrow_right</i>
+            </button>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button"
+                    class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect close">
+                <i class="material-icons">clear</i>
+            </button>
+        </div>
+    </div>
+</dialog>
+
+
+<script type="text/javascript"
+        src="/static/dialog-polyfill/dialog-polyfill.js">
+</script>
+<script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButtons = document.getElementsByClassName('show-dialog');
+
+    if (!dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+
+        dialog.querySelector('.close').addEventListener('click', function () {
+            dialog.close();
+        });
+        dialog.addEventListener('click', function (el) {
+            dialog.close()
+        });
+        dialog.querySelector('.dialog-content').addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        document.onkeypress = function (ev) {
+            if (ev.keyCode == 27 ){
+                dialog.close();
+            }
+            else if (ev.keyCode == 37){
+                previous();
+            }
+            else if (ev.keyCode == 39){
+                next();
+            }
+        };
+
+        // Adding event listener
+        for (var item of showDialogButtons) {
+            item.addEventListener('click', function (el) {
+                var location = this.getAttribute('data-url');
+                current = Number(this.getAttribute('id'));
+                document.querySelector(
+                    '#modal-image').src = location;
+                dialog.showModal();
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
